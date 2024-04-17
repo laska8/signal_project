@@ -1,5 +1,5 @@
-package com.cardio_generator.outputs;
+package com.cardiogenerator.outputs;
 
 public interface OutputStrategy {
-    void output(int patientId, long timestamp, String label, String data);
+    void output(int patientId, long timeStamp, String label, String data);
 }
