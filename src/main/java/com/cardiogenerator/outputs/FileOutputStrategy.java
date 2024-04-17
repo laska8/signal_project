@@ -6,20 +6,21 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
-
-public class fileOutputStrategy implements OutputStrategy {
+//Changed class name to FileOutputStrategy
+public class FileOutputStrategy implements OutputStrategy {
 
     private String BaseDirectory;
 
     public final ConcurrentHashMap<String, String> file_map = new ConcurrentHashMap<>();
 
-    public fileOutputStrategy(String baseDirectory) {
+    public FileOutputStrategy(String baseDirectory) {
 
         this.BaseDirectory = baseDirectory;
     }
 
     @Override
-    public void output(int patientId, long timestamp, String label, String data) {
+    // Renaming the variable timestamp
+    public void output(int patientId, long timeStamp, String label, String data) {
         try {
             // Create the directory
             Files.createDirectories(Paths.get(BaseDirectory));
@@ -33,7 +34,7 @@ public class fileOutputStrategy implements OutputStrategy {
         // Write the data to the file
         try (PrintWriter out = new PrintWriter(
                 Files.newBufferedWriter(Paths.get(FilePath), StandardOpenOption.CREATE, StandardOpenOption.APPEND))) {
-            out.printf("Patient ID: %d, Timestamp: %d, Label: %s, Data: %s%n", patientId, timestamp, label, data);
+            out.printf("Patient ID: %d, Timestamp: %d, Label: %s, Data: %s%n", patientId, timeStamp, label, data);
         } catch (Exception e) {
             System.err.println("Error writing to file " + FilePath + ": " + e.getMessage());
         }

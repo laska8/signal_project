@@ -5,8 +5,10 @@ import java.util.Random;
 import com.cardio_generator.outputs.OutputStrategy;
 
 public class AlertGenerator implements PatientDataGenerator {
+    //Line separates the static and non-static import blocks
 
     public static final Random randomGenerator = new Random();
+
     private boolean[] AlertStates; // false = resolved, true = pressed
 
     public AlertGenerator(int patientCount) {
