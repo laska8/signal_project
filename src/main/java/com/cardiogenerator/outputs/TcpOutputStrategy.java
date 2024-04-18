@@ -5,13 +5,20 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
-
+/**
+ * This class is responsible for writing the data into a tcp server.
+ * It sets up a tcp server that get inputs from clients and sends data back to them.
+ */
 public class TcpOutputStrategy implements OutputStrategy {
 
     private ServerSocket serverSocket;
     private Socket clientSocket;
     private PrintWriter out;
-
+    /**
+     * Initialize a TCP output strategy to send data to clients over TCP
+     *
+     * @param port The port number to listen for client connections.
+     */
     public TcpOutputStrategy(int port) {
         try {
             serverSocket = new ServerSocket(port);
@@ -31,7 +38,14 @@ public class TcpOutputStrategy implements OutputStrategy {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Outputs patient data.
+     *
+     * @param patientId The ID of the patient.
+     * @param timestamp The timestamp of the data.
+     * @param label The label of the data.
+     * @param data The data to be output.
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         if (out != null) {
