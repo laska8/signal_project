@@ -1,0 +1,14 @@
+
+	Data Storage and Patient Identifier Class Diagram
+Every time we want to store new patient data we need to make sure we assign the data to the right patient so we use the PatientIdentifier to match the patient Id and store it in the DataStorage to the right patient.
+While identifying the patient we also need to check if anything is wrong with the data through IdentityManager.
+If we want to retireve data we need to access the PatientRecord, that we get after checking the right patient Id, from the DataStorage.
+
+	Alarm Class Diagram
+The AlertGenerator will always be checking the DataStorage for any vital that is going over their personalized threshold. This way when something is going wrong, the AlarmGenerator can send information to the AlarmManager that will know to send out an alarm to the nurses. This is done after identifying the patient in need for help through the PatientIdentifier class.
+
+ 	ALARM State Diagram
+	The state diagram represents the lifecycle of an alert within a healthcare monitoring system. The diagram starts with the "Generated" state, where an alert is created when patient data meets predefined threshold criteria. From there, it transitions to the "Sent" state, indicating that the alert has been sent to medical staff for attention. Upon acknowledgment by the medical staff, the alert moves to the "Acknowledged" state. In this state, the medical staff can resolve the alert either manually, by taking appropriate action, or automatically, if subsequent data shows that the patient's condition has stabilized. Once resolved, the alert remains in the "Resolved" state.
+	
+	ALARM Sequence Diagram
+When we detect an anomaly in the patient data, a vital surpresses their threshold, we need to send it to the AlertGenerator. This class will send the information to DataStorage to check if the exceeding of the threshold has stabilised itself or it's still over. If everything went back to normal, we can go back to surveiling the patients data. If the threshold is still being surpassed we need to send an alarm to the nurse. She will take care of it from then on.
