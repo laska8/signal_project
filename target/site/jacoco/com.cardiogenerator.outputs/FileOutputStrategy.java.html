@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileOutputStrategy.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">cardio_generator</a> &gt; <a href="index.source.html" class="el_package">com.cardiogenerator.outputs</a> &gt; <span class="el_source">FileOutputStrategy.java</span></div><h1>FileOutputStrategy.java</h1><pre class="source lang-java linenums">//Wrong package name(no underscores). Consecutive words are concatenated together.
+package com.cardiogenerator.outputs;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.concurrent.ConcurrentHashMap;
+/**
+ * This class is responsible for writing the data into a file.
+ * The output of this class will be in the form of a file.
+ */
+//Changed class name to FileOutputStrategy (Class names should be written in UpperCamelCase).
+public class FileOutputStrategy implements OutputStrategy {
+
+    private String baseDirectory; // Changed variable name to camelCase convention.
+
+<span class="nc" id="L19">    public final ConcurrentHashMap&lt;String, String&gt; fileMap = new ConcurrentHashMap&lt;&gt;();// Changed variable name to camelCase convention.</span>
+    /**
+     * Constructs a FileOutputStrategy with the specified base directory.
+     *
+     * @param baseDirectory The base directory for storing files.
+     */
+<span class="nc" id="L25">    public FileOutputStrategy(String baseDirectory) {</span>
+
+<span class="nc" id="L27">        this.baseDirectory = baseDirectory;</span>
+<span class="nc" id="L28">    }</span>
+
+    @Override
+    /**
+     * Outputs patient data to files.
+     *
+     * @param patientId The ID of the patient.
+     * @param timeStamp The timestamp of the data.
+     * @param label The label of the data.
+     * @param data The data to be output.
+     */
+    //Renaming the variable timestamp to camelCase convention.
+    public void output(int patientId, long timeStamp, String label, String data) {
+        try {
+            // Create the directory
+<span class="nc" id="L43">            Files.createDirectories(Paths.get(baseDirectory));</span>
+<span class="nc" id="L44">        } catch (IOException e) {</span>
+<span class="nc" id="L45">            System.err.println(&quot;Error creating base directory: &quot; + e.getMessage());</span>
+<span class="nc" id="L46">            return;</span>
+<span class="nc" id="L47">        }</span>
+        // Set the FilePath variable
+<span class="nc" id="L49">        String FilePath = fileMap.computeIfAbsent(label, k -&gt; Paths.get(baseDirectory, label + &quot;.txt&quot;).toString());</span>
+
+        // Write the data to the file
+<span class="nc" id="L52">        try (PrintWriter out = new PrintWriter(</span>
+            //Fix tabulation
+<span class="nc" id="L54">            Files.newBufferedWriter(Paths.get(FilePath), StandardOpenOption.CREATE, StandardOpenOption.APPEND))) {</span>
+<span class="nc" id="L55">            out.printf(&quot;Patient ID: %d, Timestamp: %d, Label: %s, Data: %s%n&quot;, patientId, timeStamp, label, data);</span>
+<span class="nc" id="L56">        } catch (Exception e) {</span>
+<span class="nc" id="L57">            System.err.println(&quot;Error writing to file &quot; + FilePath + &quot;: &quot; + e.getMessage());</span>
+<span class="nc" id="L58">        }</span>
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
