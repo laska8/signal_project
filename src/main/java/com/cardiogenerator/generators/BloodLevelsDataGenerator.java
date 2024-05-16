@@ -33,8 +33,9 @@ public class BloodLevelsDataGenerator implements PatientDataGenerator {
             double redCells = baselineRedCells[patientId] + (random.nextDouble() - 0.5) * 0.2; // Small variation
 
             // Output the generated values
+
             outputStrategy.output(patientId, System.currentTimeMillis(), "Cholesterol", Double.toString(cholesterol));
-            outputStrategy.output(patientId, System.currentTimeMillis(), "WhiteBloodCells",
+            outputStrategy.output(patientId, System.currentTimeMillis(),"WhiteBloodCells",
                     Double.toString(whiteCells));
             outputStrategy.output(patientId, System.currentTimeMillis(), "RedBloodCells", Double.toString(redCells));
         } catch (Exception e) {

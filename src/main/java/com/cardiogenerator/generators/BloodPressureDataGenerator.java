@@ -34,6 +34,8 @@ public class BloodPressureDataGenerator implements PatientDataGenerator {
             lastSystolicValues[patientId] = newSystolicValue;
             lastDiastolicValues[patientId] = newDiastolicValue;
 
+
+
             outputStrategy.output(patientId, System.currentTimeMillis(), "SystolicPressure",
                     Double.toString(newSystolicValue));
             outputStrategy.output(patientId, System.currentTimeMillis(), "DiastolicPressure",

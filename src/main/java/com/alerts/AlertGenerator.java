@@ -15,8 +15,7 @@ import java.util.List;
  */
 public class AlertGenerator {
     private DataStorage dataStorage;
-    public static PatientRecord previous;
-    public static int count=0;
+
 
     /**
      * Constructs an {@code AlertGenerator} with a specified {@code DataStorage}.
@@ -43,32 +42,27 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
-        if (patient==null){
-            System.out.println("Patient data is null");
-            return;
+        if (patient == null) {
+            throw new NullPointerException("Patient data is null.");
         }
-        //blood pressure
         checkSystolicPressure(patient);
         checkDiastolicPressure(patient);
-        checkBloodPressure(patient);
-
-        //blood saturation
-        checkLowSaturation(patient);
-        checkRapidDrop(patient);
-
-        //ECG
-        checkHeartRate(patient);
-        irregularBeat(patient);
-        //Hypotensive Hypoxemia Alert
+        checkBloodPressureIncreasing(patient) ;
+        checkBloodPressureDecreasing(patient) ;
+        checkLowSaturation(patient) ;
+        checkRapidDrop(patient) ;
+        checkHeartRate(patient) ;
+        irregularBeat(patient) ;
         hypotensiveHypoxemiaAlert(patient);
     }
+
 
     /**
      * This method checks for hypotensive hypoxemia conditions in the patient's records and triggers an alert
      * if both blood pressure and blood oxygen saturation are below certain thresholds.
      * @param patient
      */
-    public void hypotensiveHypoxemiaAlert(Patient patient) {
+    public boolean hypotensiveHypoxemiaAlert(Patient patient) {
         long currentTime = System.currentTimeMillis();
         boolean bloodPressure = false;
         boolean bloodOxygenSaturation = false;
@@ -82,16 +76,19 @@ public class AlertGenerator {
             }
             if (bloodPressure && bloodOxygenSaturation) {
                 triggerAlert(new Alert(Integer.toString(record.getPatientId()), "Hypotensive Hypoxemia Alert", currentTime));
+                return true;
             }
         }
-
+        return false;
     }
 
     /**
      * This method checks the systolic blood pressure of the patient and triggers an alert if it falls outside the normal range.
      * @param patient
      */
-    public void checkSystolicPressure(Patient patient){
+    public boolean checkSystolicPressure(Patient patient){
+        boolean trigger = false;
+
         for(int i=0; i<patient.patientRecords.size(); i++) {
             PatientRecord rec = patient.patientRecords.get(i);
 
@@ -100,16 +97,20 @@ public class AlertGenerator {
                     String id = String.valueOf(rec.getPatientId());
                     Alert systolic = new Alert(id, rec.getRecordType(), rec.getTimestamp());
                     triggerAlert(systolic);
+                    trigger=true;
                 }
             }
         }
+        return trigger;
     }
 
     /**
      * This method checks the diastolic blood pressure of the patient and triggers an alert if it falls outside the normal range.
      * @param patient
      */
-    public void checkDiastolicPressure(Patient patient){
+    public boolean checkDiastolicPressure(Patient patient){
+        boolean trigger = false;
+
         for(int i=0; i<patient.patientRecords.size(); i++) {
             PatientRecord rec = patient.patientRecords.get(i);
 
@@ -118,18 +119,25 @@ public class AlertGenerator {
                     String id = String.valueOf(rec.getPatientId());
                     Alert diastolic = new Alert(id, rec.getRecordType(), rec.getTimestamp());
                     triggerAlert(diastolic);
+                    trigger=true;
                 }
             }
         }
+
+        return trigger;
     }
 
     /**
-     * This method checks for significant changes in the patient's blood pressure readings over a short period
-     * and triggers an alert if such changes are detected.
+     * This method checks for significant increases in the patient's blood pressure over three consecutive readings
+     * and triggers an alert if such increases are detected.
      * @param patient
      */
-    public void checkBloodPressure(Patient patient){
-        for(int i=0; i<patient.patientRecords.size(); i++) {
+    public boolean checkBloodPressureIncreasing(Patient patient){
+        boolean trigger = false;
+        PatientRecord previous=patient.patientRecords.get(0);
+        int count=0;
+
+        for(int i = 0; i<patient.patientRecords.size() && !trigger; i++) {
             PatientRecord rec = patient.patientRecords.get(i);
 
             if(rec.getRecordType().equals("SystolicPressure") || rec.getRecordType().equals("DiastolicPressure")){
@@ -138,24 +146,71 @@ public class AlertGenerator {
                     count++;
                     previous=rec;
                 } else {
-                    if (count != 3) {
-                        if (Math.abs(previous.getMeasurementValue() - rec.getMeasurementValue()) >= 10 ||
-                                Math.abs(previous.getMeasurementValue() - rec.getMeasurementValue()) <= 10) {
-                            count++;
-                            previous=rec;
-
-                        }
+                    if (Math.abs(previous.getMeasurementValue() - rec.getMeasurementValue()) >= 10
+                            && previous.getMeasurementValue()<rec.getMeasurementValue()) {
+                        count++;
+                        previous = rec;
+                    } else {
+                        count = 0;
+                        previous = rec;
                     }
                 }
 
                 if(count==3){
                     String id = String.valueOf(rec.getPatientId());
-                    Alert bloodPressure = new Alert(id, rec.getRecordType(), rec.getTimestamp());
-                    triggerAlert(bloodPressure);
+                    Alert bloodPressureIncrease = new Alert(id, rec.getRecordType(), rec.getTimestamp());
+                    triggerAlert(bloodPressureIncrease);
+                    trigger=true;
                     count=0;
+                    previous=rec;
                 }
             }
         }
+
+        return trigger;
+    }
+
+    /**
+     * This method checks for significant decreases in the patient's blood pressure over three consecutive readings
+     * and triggers an alert if such decreases are detected.
+     * @param patient
+     */
+    public boolean checkBloodPressureDecreasing(Patient patient){
+        boolean trigger = false;
+        PatientRecord previous=patient.patientRecords.get(0);
+        int count=0;
+
+        for(int i = 0; i<patient.patientRecords.size() && !trigger; i++) {
+            PatientRecord rec = patient.patientRecords.get(i);
+
+            if(rec.getRecordType().equals("SystolicPressure") || rec.getRecordType().equals("DiastolicPressure")){
+
+                if(count==0){
+                    count++;
+                    previous=rec;
+                } else {
+                    if (Math.abs(previous.getMeasurementValue() - rec.getMeasurementValue()) >= 10
+                            && previous.getMeasurementValue()>rec.getMeasurementValue()) {
+                        count++;
+                        previous = rec;
+                    } else {
+                        count = 0;
+                        previous = rec;
+                    }
+                }
+
+                if(count==3){
+                    String id = String.valueOf(rec.getPatientId());
+                    Alert bloodPressureDecrease = new Alert(id, rec.getRecordType(), rec.getTimestamp());
+                    triggerAlert(bloodPressureDecrease);
+                    trigger=true;
+                    count=0;
+                    previous=rec;
+                }
+            }
+        }
+
+        return trigger;
     }
 
     /**
@@ -163,7 +218,9 @@ public class AlertGenerator {
      * and triggers an alert if it falls below a certain threshold.
      * @param patient
      */
-    public void checkLowSaturation(Patient patient){
+    public boolean checkLowSaturation(Patient patient){
+        boolean trigger = false;
+
         for(int i=0; i<patient.patientRecords.size(); i++) {
             PatientRecord rec = patient.patientRecords.get(i);
 
@@ -172,24 +229,26 @@ public class AlertGenerator {
                     String id = String.valueOf(rec.getPatientId());
                     Alert lowSaturation = new Alert(id, rec.getRecordType(), rec.getTimestamp());
                     triggerAlert(lowSaturation);
+                    trigger=true;
                 }
             }
         }
+        return trigger;
     }
 
     /**
-     * This method checks for rapid drops in blood oxygen saturation levels over a short period
+     * This method checks for rapid drops in blood oxygen saturation levels over 10 minutes or less
      * and triggers an alert if such drops are detected.
      * @param patient
      */
-    public void checkRapidDrop(Patient patient){
+    public boolean checkRapidDrop(Patient patient){
 
         List<Double> timer=new ArrayList<Double>();
         List<Double> values=new ArrayList<Double>();
-        int initial=0;
         double passedTime=0;
         double sumDrops=0;
         PatientRecord prev=patient.patientRecords.get(0);
+        boolean trigger = false;
 
         for(int i=1; i<patient.patientRecords.size(); i++) {
             PatientRecord rec = patient.patientRecords.get(i);
@@ -205,11 +264,10 @@ public class AlertGenerator {
                 if(sumDrops<5){
 
                     //in miliseconds
-                    if(passedTime>=600000){
+                    if(passedTime>=600000 && i!=1){
 
-                        passedTime=passedTime-timer.get(initial);
-                        sumDrops=sumDrops+values.get(initial);
-                        initial++;
+                        passedTime=0;
+                        sumDrops=0;
                     }
 
                     timer.add(diffTime);
@@ -219,36 +277,46 @@ public class AlertGenerator {
                     String id = String.valueOf(rec.getPatientId());
                     Alert rapidDrop = new Alert(id, rec.getRecordType(), rec.getTimestamp());
                     triggerAlert(rapidDrop);
+                    trigger=true;
                 }
 
                 prev=rec;
             }
         }
+
+        return trigger;
     }
 
     /**
      * This method checks the patient's heart rate derived from ECG readings and triggers an alert if it falls outside the normal range.
      * @param patient
      */
-    public void checkHeartRate(Patient patient){
+    public boolean checkHeartRate(Patient patient){
 
         PatientRecord pr=patient.patientRecords.get(0);
+        boolean trigger = false;
 
-        for(int i=1; i<patient.patientRecords.size(); i++) {
+        for(int i=0; i<patient.patientRecords.size(); i++) {
             PatientRecord rec = patient.patientRecords.get(i);
 
             if (rec.getRecordType().equals("ECG")) {
 
-                double timeInterval=rec.getTimestamp()-pr.getTimestamp();
-                double heartRate=60000/timeInterval;
+                //transforming the data into bpm
+                //double timeInterval=rec.getTimestamp()-pr.getTimestamp();
+                //double heartRate=60000/timeInterval;
+
+                //for testing JUnit
+                double heartRate=rec.getMeasurementValue();
 
                 if (heartRate <=50 || heartRate >= 100) {
                     String id = String.valueOf(rec.getPatientId());
                     Alert abnormalHeartRate = new Alert(id, rec.getRecordType(), rec.getTimestamp());
                     triggerAlert(abnormalHeartRate);
+                    trigger=true;
                 }
             }
         }
+        return trigger;
     }
 
     /**
@@ -257,9 +325,10 @@ public class AlertGenerator {
      * @param patient
      */
 
-    public void irregularBeat(Patient patient){
+    public boolean irregularBeat(Patient patient){
 
         PatientRecord pr=patient.patientRecords.get(0);
+        boolean trigger = false;
 
         for(int i=1; i<patient.patientRecords.size(); i++) {
             PatientRecord rec = patient.patientRecords.get(i);
@@ -272,9 +341,12 @@ public class AlertGenerator {
                     String id = String.valueOf(rec.getPatientId());
                     Alert irregularBeat = new Alert(id, rec.getRecordType(), rec.getTimestamp());
                     triggerAlert(irregularBeat);
+                    trigger=true;
                 }
             }
         }
+
+        return trigger;
     }
 
     /**
@@ -289,4 +361,5 @@ public class AlertGenerator {
         // Implementation might involve logging the alert or notifying staff
         System.out.print("Alert triggered: " + alert.getCondition() + " for patient " + alert.getPatientId() + "at" + alert.getTimestamp());
     }
+
 }

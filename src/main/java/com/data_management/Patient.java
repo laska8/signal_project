@@ -10,7 +10,7 @@ import java.util.List;
  * of medical records based on specified criteria.
  */
 public class Patient {
-    private int patientId;
+    public int patientId;
     public List<PatientRecord> patientRecords;
 
     /**
@@ -39,6 +39,10 @@ public class Patient {
         PatientRecord record = new PatientRecord(this.patientId, measurementValue, recordType, timestamp);
         this.patientRecords.add(record);
     }
+    public int getPatientId(){
+        return patientId;
+    }
+
 
     /**
      * Retrieves a list of PatientRecord objects for this patient that fall within a

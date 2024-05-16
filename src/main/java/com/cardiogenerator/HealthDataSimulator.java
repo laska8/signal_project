@@ -78,7 +78,7 @@ public class HealthDataSimulator {
                         }
                     }
                     break;
-                case "--output":
+                case "--output file:<output_dir>":
                     if (i + 1 < args.length) {
                         String outputArg = args[++i];
                         if (outputArg.equals("console")) {
