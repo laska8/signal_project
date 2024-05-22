@@ -13,10 +13,14 @@ import com.data_management.PatientRecord;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
+/**
+ * Unit tests for the DataStorage class.
+ */
 class DataStorageTest {
 
-
+    /**
+     * Tests the addition and retrieval of patient records.
+     */
     @Test
     void testAddAndGetRecords() {
 
