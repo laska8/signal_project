@@ -1,8 +1,11 @@
 package com.data_management;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 
 public interface DataReader {
+
     /**
      * Reads data from a specified source and stores it in the data storage.
      * 
