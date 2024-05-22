@@ -2,6 +2,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,9 +22,9 @@ public class DataStorage {
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
-<span class="fc" id="L24">    public DataStorage() {</span>
-<span class="fc" id="L25">        this.patientMap = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L25">    public DataStorage() {</span>
+<span class="fc" id="L26">        this.patientMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L27">    }</span>
 
     /**
      * Adds or updates patient data in the storage.
@@ -39,13 +40,13 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-<span class="fc" id="L42">        Patient patient = patientMap.get(patientId);</span>
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (patient == null) {</span>
-<span class="fc" id="L44">            patient = new Patient(patientId);</span>
-<span class="fc" id="L45">            patientMap.put(patientId, patient);</span>
+<span class="fc" id="L43">        Patient patient = patientMap.get(patientId);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (patient == null) {</span>
+<span class="fc" id="L45">            patient = new Patient(patientId);</span>
+<span class="fc" id="L46">            patientMap.put(patientId, patient);</span>
         }
-<span class="fc" id="L47">        patient.addRecord(measurementValue, recordType, timestamp);</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L48">        patient.addRecord(measurementValue, recordType, timestamp);</span>
+<span class="fc" id="L49">    }</span>
 
     /**
      * Retrieves a list of PatientRecord objects for a specific patient, filtered by
@@ -61,11 +62,11 @@ public class DataStorage {
      *         range
      */
     public List&lt;PatientRecord&gt; getRecords(int patientId, long startTime, long endTime) {
-<span class="fc" id="L64">        Patient patient = patientMap.get(patientId);</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (patient != null) {</span>
-<span class="fc" id="L66">            return patient.getRecords(startTime, endTime);</span>
+<span class="fc" id="L65">        Patient patient = patientMap.get(patientId);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (patient != null) {</span>
+<span class="fc" id="L67">            return patient.getRecords(startTime, endTime);</span>
         }
-<span class="fc" id="L68">        return new ArrayList&lt;&gt;(); // return an empty list if no patient is found</span>
+<span class="fc" id="L69">        return new ArrayList&lt;&gt;(); // return an empty list if no patient is found</span>
     }
 
     /**
@@ -74,7 +75,7 @@ public class DataStorage {
      * @return a list of all patients
      */
     public List&lt;Patient&gt; getAllPatients() {
-<span class="fc" id="L77">        return new ArrayList&lt;&gt;(patientMap.values());</span>
+<span class="fc" id="L78">        return new ArrayList&lt;&gt;(patientMap.values());</span>
     }
 
     /**
@@ -85,31 +86,35 @@ public class DataStorage {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        // DataReader is not defined in this scope, should be initialized appropriately.
-        //DataReader reader= new FileReader(&quot;src/test/java/data_management/outputFileTest&quot;);
-<span class="nc" id="L90">        DataStorage storage = new DataStorage();</span>
-        // Assuming the reader has been properly initialized and can read data into the
-        // storage
-        //try{
-         //reader.readData(storage);
+        try {
+<span class="nc" id="L90">            DataStorage storage = new DataStorage();</span>
+<span class="nc" id="L91">            URI url = new URI(&quot;ws://localhost:8080&quot;);</span>
+
+<span class="nc" id="L93">            DataReader2 reader = new WebSocketClientReader(storage,url);</span>
+
+<span class="nc" id="L95">            reader.readData(storage, url);</span>
+
+<span class="nc" id="L97">        } catch (Exception e) {</span>
+<span class="nc" id="L98">            e.printStackTrace();</span>
+<span class="nc" id="L99">        }</span>
 
         // Example of using DataStorage to retrieve and print records for a patient
-<span class="nc" id="L97">        List&lt;PatientRecord&gt; records = storage.getRecords(1, 1700000000000L, 1800000000000L);</span>
-<span class="nc bnc" id="L98" title="All 2 branches missed.">        for (PatientRecord record : records) {</span>
-<span class="nc" id="L99">            System.out.println(&quot;Record for Patient ID: &quot; + record.getPatientId() +</span>
-<span class="nc" id="L100">                    &quot;, Type: &quot; + record.getRecordType() +</span>
-<span class="nc" id="L101">                    &quot;, Data: &quot; + record.getMeasurementValue() +</span>
-<span class="nc" id="L102">                    &quot;, Timestamp: &quot; + record.getTimestamp());</span>
-<span class="nc" id="L103">        }</span>
-
-        // Initialize the AlertGenerator with the storage
-<span class="nc" id="L106">        AlertGenerator alertGenerator = new AlertGenerator(storage);</span>
-
-        // Evaluate all patients' data to check for conditions that may trigger alerts
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        for (Patient patient : storage.getAllPatients()) {</span>
-<span class="nc" id="L110">            alertGenerator.evaluateData(patient);</span>
-<span class="nc" id="L111">        }</span>
-<span class="nc" id="L112">        }</span>
+//        List&lt;PatientRecord&gt; records = storage.getRecords(1, 1700000000000L, 1800000000000L);
+//        for (PatientRecord record : records) {
+//            System.out.println(&quot;Record for Patient ID: &quot; + record.getPatientId() +
+//                    &quot;, Type: &quot; + record.getRecordType() +
+//                    &quot;, Data: &quot; + record.getMeasurementValue() +
+//                    &quot;, Timestamp: &quot; + record.getTimestamp());
+//        }
+//
+//        // Initialize the AlertGenerator with the storage
+//        AlertGenerator alertGenerator = new AlertGenerator(storage);
+//
+//        // Evaluate all patients' data to check for conditions that may trigger alerts
+//        for (Patient patient : storage.getAllPatients()) {
+//            alertGenerator.evaluateData(patient);
+//        }
+<span class="nc" id="L117">       }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

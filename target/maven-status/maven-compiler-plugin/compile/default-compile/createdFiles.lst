@@ -17,5 +17,7 @@ com\cardiogenerator\outputs\WebSocketOutputStrategy$SimpleWebSocketServer.class
 com\cardiogenerator\generators\ECGDataGenerator.class
 com\cardiogenerator\outputs\WebSocketOutputStrategy.class
 com\cardiogenerator\generators\BloodSaturationDataGenerator.class
+com\data_management\DataReader2.class
 com\data_management\FileReader.class
 com\data_management\Patient.class
+com\data_management\WebSocketClientReader.class

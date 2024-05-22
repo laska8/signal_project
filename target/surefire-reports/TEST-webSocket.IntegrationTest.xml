@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="alerts.AlertGeneratorTest" time="0.32" tests="10" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="webSocket.IntegrationTest" time="3.174" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="20"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,32 +58,13 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="64.0"/>
   </properties>
-  <testcase name="hypotensiveHypoxemiaAlert" classname="alerts.AlertGeneratorTest" time="0.172">
-    <system-out><![CDATA[Alert triggered: Hypotensive Hypoxemia Alert for patient 1at1716386480444]]></system-out>
+  <testcase name="testConnectionSuccess" classname="webSocket.IntegrationTest" time="2.995">
+    <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
   </testcase>
-  <testcase name="testCheckBloodPressureIncreasing" classname="alerts.AlertGeneratorTest" time="0.002">
-    <system-out><![CDATA[Alert triggered: DiastolicPressure for patient 1at1714376789050]]></system-out>
-  </testcase>
-  <testcase name="testCheckBloodPressureDecreasing" classname="alerts.AlertGeneratorTest" time="0.003">
-    <system-out><![CDATA[Alert triggered: DiastolicPressure for patient 1at1714376789050]]></system-out>
-  </testcase>
-  <testcase name="evaluateData" classname="alerts.AlertGeneratorTest" time="0.008"/>
-  <testcase name="testCheckDiastolicPressure" classname="alerts.AlertGeneratorTest" time="0.003">
-    <system-out><![CDATA[Alert triggered: DiastolicPressure for patient 1at1714376789050Alert triggered: DiastolicPressure for patient 1at1714376789050]]></system-out>
-  </testcase>
-  <testcase name="testCheckHeartRate" classname="alerts.AlertGeneratorTest" time="0.004">
-    <system-out><![CDATA[Alert triggered: ECG for patient 1at1714376789050Abnormal heart rate alertAlert triggered: ECG for patient 2at1714376789050Abnormal heart rate alert]]></system-out>
-  </testcase>
-  <testcase name="testCheckLowSaturation" classname="alerts.AlertGeneratorTest" time="0.004">
-    <system-out><![CDATA[Alert triggered: Saturation for patient 1at1714376789050]]></system-out>
-  </testcase>
-  <testcase name="testCheckRapidDrop" classname="alerts.AlertGeneratorTest" time="0.004">
-    <system-out><![CDATA[Alert triggered: Saturation for patient 1at600100Alert triggered: Saturation for patient 2at600100]]></system-out>
-  </testcase>
-  <testcase name="testCheckSystolicPressure" classname="alerts.AlertGeneratorTest" time="0.003">
-    <system-out><![CDATA[Alert triggered: SystolicPressure for patient 1at1714376789050Alert triggered: SystolicPressure for patient 1at1714376789050]]></system-out>
-  </testcase>
-  <testcase name="testIrregularBeat" classname="alerts.AlertGeneratorTest" time="0.002">
-    <system-out><![CDATA[Alert triggered: ECG for patient 1at80Alert triggered: ECG for patient 2at15Alert triggered: ECG for patient 2at20]]></system-out>
-  </testcase>
+  <testcase name="testIntegrationError" classname="webSocket.IntegrationTest" time="0.018"/>
+  <testcase name="testConnectionFailure" classname="webSocket.IntegrationTest" time="0.064"/>
+  <testcase name="testIntegration" classname="webSocket.IntegrationTest" time="0.081"/>
 </testsuite>

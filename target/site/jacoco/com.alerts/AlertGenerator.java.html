@@ -42,19 +42,19 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        if (patient == null) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (patient == null) {</span>
 <span class="fc" id="L46">            throw new NullPointerException(&quot;Patient data is null.&quot;);</span>
         }
-<span class="nc" id="L48">        checkSystolicPressure(patient);</span>
-<span class="nc" id="L49">        checkDiastolicPressure(patient);</span>
-<span class="nc" id="L50">        checkBloodPressureIncreasing(patient) ;</span>
-<span class="nc" id="L51">        checkBloodPressureDecreasing(patient) ;</span>
-<span class="nc" id="L52">        checkLowSaturation(patient) ;</span>
-<span class="nc" id="L53">        checkRapidDrop(patient) ;</span>
-<span class="nc" id="L54">        checkHeartRate(patient) ;</span>
-<span class="nc" id="L55">        irregularBeat(patient) ;</span>
-<span class="nc" id="L56">        hypotensiveHypoxemiaAlert(patient);</span>
-<span class="nc" id="L57">    }</span>
+<span class="fc" id="L48">        checkSystolicPressure(patient);</span>
+<span class="fc" id="L49">        checkDiastolicPressure(patient);</span>
+<span class="fc" id="L50">        checkBloodPressureIncreasing(patient);</span>
+<span class="fc" id="L51">        checkBloodPressureDecreasing(patient);</span>
+<span class="fc" id="L52">        checkLowSaturation(patient);</span>
+<span class="fc" id="L53">        checkRapidDrop(patient);</span>
+<span class="fc" id="L54">        checkHeartRate(patient);</span>
+<span class="fc" id="L55">        irregularBeat(patient);</span>
+<span class="fc" id="L56">        hypotensiveHypoxemiaAlert(patient);</span>
+<span class="fc" id="L57">    }</span>
 
 
     /**
@@ -81,41 +81,27 @@ public class AlertGenerator {
         }
 <span class="fc" id="L82">        return false;</span>
     }
-//    private void evaluateHypotensiveHypoxemia(Patient patient) {
-//        long currentTime = System.currentTimeMillis();
-//        List&lt;PatientRecord&gt; recentRecords = dataStorage.getRecords(patient.getPatientId(), currentTime - 600000, currentTime);
-//
-//        boolean lowBP = recentRecords.stream()
-//                .anyMatch(r -&gt; &quot;SystolicPressure&quot;.equals(r.getRecordType()) &amp;&amp; r.getMeasurementValue() &lt; 90);
-//
-//        boolean lowSaturation = recentRecords.stream()
-//                .anyMatch(r -&gt; &quot;Saturation&quot;.equals(r.getRecordType()) &amp;&amp; r.getMeasurementValue() &lt; 92);
-//
-//        if (lowBP &amp;&amp; lowSaturation) {
-//            triggerAlert(new Alert(Integer.toString(patient.getPatientId()), &quot;Hypotensive Hypoxemia Alert&quot;, currentTime));
-//        }
-//    }
 
     /**
      * This method checks the systolic blood pressure of the patient and triggers an alert if it falls outside the normal range.
      * @param patient
      */
     public boolean checkSystolicPressure(Patient patient){
-<span class="fc" id="L104">        boolean trigger = false;</span>
+<span class="fc" id="L90">        boolean trigger = false;</span>
 
-<span class="fc bfc" id="L106" title="All 2 branches covered.">        for(int i=0; i&lt;patient.patientRecords.size(); i++) {</span>
-<span class="fc" id="L107">            PatientRecord rec = patient.patientRecords.get(i);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        for(int i=0; i&lt;patient.patientRecords.size(); i++) {</span>
+<span class="fc" id="L93">            PatientRecord rec = patient.patientRecords.get(i);</span>
 
-<span class="pc bpc" id="L109" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;SystolicPressure&quot;)) {</span>
-<span class="pc bpc" id="L110" title="1 of 4 branches missed.">                if (rec.getMeasurementValue() &gt;= 180 || rec.getMeasurementValue() &lt;= 90) {</span>
-<span class="fc" id="L111">                    String id = String.valueOf(rec.getPatientId());</span>
-<span class="fc" id="L112">                    Alert systolic = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
-<span class="fc" id="L113">                    triggerAlert(systolic);</span>
-<span class="fc" id="L114">                    trigger=true;</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">            if (rec.getRecordType().equals(&quot;SystolicPressure&quot;)) {</span>
+<span class="pc bpc" id="L96" title="1 of 4 branches missed.">                if (rec.getMeasurementValue() &gt;= 180 || rec.getMeasurementValue() &lt;= 90) {</span>
+<span class="fc" id="L97">                    String id = String.valueOf(rec.getPatientId());</span>
+<span class="fc" id="L98">                    Alert systolic = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
+<span class="fc" id="L99">                    triggerAlert(systolic);</span>
+<span class="fc" id="L100">                    trigger=true;</span>
                 }
             }
         }
-<span class="fc" id="L118">        return trigger;</span>
+<span class="fc" id="L104">        return trigger;</span>
     }
 
     /**
@@ -123,102 +109,108 @@ public class AlertGenerator {
      * @param patient
      */
     public boolean checkDiastolicPressure(Patient patient){
-<span class="fc" id="L126">        boolean trigger = false;</span>
+<span class="fc" id="L112">        boolean trigger = false;</span>
 
-<span class="fc bfc" id="L128" title="All 2 branches covered.">        for(int i=0; i&lt;patient.patientRecords.size(); i++) {</span>
-<span class="fc" id="L129">            PatientRecord rec = patient.patientRecords.get(i);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        for(int i=0; i&lt;patient.patientRecords.size(); i++) {</span>
+<span class="fc" id="L115">            PatientRecord rec = patient.patientRecords.get(i);</span>
 
-<span class="pc bpc" id="L131" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;DiastolicPressure&quot;)) {</span>
-<span class="pc bpc" id="L132" title="1 of 4 branches missed.">                if (rec.getMeasurementValue() &gt;= 120 || rec.getMeasurementValue() &lt;= 60) {</span>
-<span class="fc" id="L133">                    String id = String.valueOf(rec.getPatientId());</span>
-<span class="fc" id="L134">                    Alert diastolic = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
-<span class="fc" id="L135">                    triggerAlert(diastolic);</span>
-<span class="fc" id="L136">                    trigger=true;</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">            if (rec.getRecordType().equals(&quot;DiastolicPressure&quot;)) {</span>
+<span class="pc bpc" id="L118" title="1 of 4 branches missed.">                if (rec.getMeasurementValue() &gt;= 120 || rec.getMeasurementValue() &lt;= 60) {</span>
+<span class="fc" id="L119">                    String id = String.valueOf(rec.getPatientId());</span>
+<span class="fc" id="L120">                    Alert diastolic = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
+<span class="fc" id="L121">                    triggerAlert(diastolic);</span>
+<span class="fc" id="L122">                    trigger=true;</span>
                 }
             }
         }
 
-<span class="fc" id="L141">        return trigger;</span>
+<span class="fc" id="L127">        return trigger;</span>
     }
 
     /**
-     * This method checks for significant changes in the patient's blood pressure readings over a short period
-     * and triggers an alert if such changes are detected.
+     * This method checks for significant increases in the patient's blood pressure over three consecutive readings
+     * and triggers an alert if such increases are detected.
      * @param patient
      */
     public boolean checkBloodPressureIncreasing(Patient patient){
-<span class="fc" id="L150">        boolean trigger = false;</span>
-<span class="fc" id="L151">        PatientRecord previous=patient.patientRecords.get(0);</span>
-<span class="fc" id="L152">        int count=0;</span>
+<span class="fc" id="L136">        boolean trigger = false;</span>
+<span class="fc" id="L137">        PatientRecord previous=patient.patientRecords.get(0);</span>
+<span class="fc" id="L138">        int count=0;</span>
 
-<span class="pc bpc" id="L154" title="1 of 4 branches missed.">        for(int i = 0; i&lt;patient.patientRecords.size() &amp;&amp; !trigger; i++) {</span>
-<span class="fc" id="L155">            PatientRecord rec = patient.patientRecords.get(i);</span>
+<span class="pc bpc" id="L140" title="1 of 4 branches missed.">        for(int i = 0; i&lt;patient.patientRecords.size() &amp;&amp; !trigger; i++) {</span>
+<span class="fc" id="L141">            PatientRecord rec = patient.patientRecords.get(i);</span>
 
-<span class="pc bpc" id="L157" title="2 of 4 branches missed.">            if(rec.getRecordType().equals(&quot;SystolicPressure&quot;) || rec.getRecordType().equals(&quot;DiastolicPressure&quot;)){</span>
+<span class="pc bpc" id="L143" title="1 of 4 branches missed.">            if(rec.getRecordType().equals(&quot;SystolicPressure&quot;) || rec.getRecordType().equals(&quot;DiastolicPressure&quot;)){</span>
 
-<span class="fc bfc" id="L159" title="All 2 branches covered.">                if(count==0){</span>
-<span class="fc" id="L160">                    count++;</span>
-<span class="fc" id="L161">                    previous=rec;</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">                if(count==0){</span>
+<span class="fc" id="L146">                    count++;</span>
+<span class="fc" id="L147">                    previous=rec;</span>
                 } else {
-<span class="fc bfc" id="L163" title="All 2 branches covered.">                    if (Math.abs(previous.getMeasurementValue() - rec.getMeasurementValue()) &gt;= 10</span>
-<span class="pc bpc" id="L164" title="1 of 2 branches missed.">                            &amp;&amp; previous.getMeasurementValue()&lt;rec.getMeasurementValue()) {</span>
-<span class="fc" id="L165">                        count++;</span>
-<span class="fc" id="L166">                        previous = rec;</span>
+<span class="fc bfc" id="L149" title="All 2 branches covered.">                    if (Math.abs(previous.getMeasurementValue() - rec.getMeasurementValue()) &gt;= 10</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">                            &amp;&amp; previous.getMeasurementValue()&lt;rec.getMeasurementValue()) {</span>
+<span class="fc" id="L151">                        count++;</span>
+<span class="fc" id="L152">                        previous = rec;</span>
                     } else {
-<span class="fc" id="L168">                        count = 0;</span>
-<span class="fc" id="L169">                        previous = rec;</span>
+<span class="fc" id="L154">                        count = 0;</span>
+<span class="fc" id="L155">                        previous = rec;</span>
                     }
                 }
 
-<span class="fc bfc" id="L173" title="All 2 branches covered.">                if(count==3){</span>
-<span class="fc" id="L174">                    String id = String.valueOf(rec.getPatientId());</span>
-<span class="fc" id="L175">                    Alert bloodPressureIncrease = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
-<span class="fc" id="L176">                    triggerAlert(bloodPressureIncrease);</span>
-<span class="fc" id="L177">                    trigger=true;</span>
-<span class="fc" id="L178">                    count=0;</span>
-<span class="fc" id="L179">                    previous=rec;</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">                if(count==3){</span>
+<span class="fc" id="L160">                    String id = String.valueOf(rec.getPatientId());</span>
+<span class="fc" id="L161">                    Alert bloodPressureIncrease = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
+<span class="fc" id="L162">                    triggerAlert(bloodPressureIncrease);</span>
+<span class="fc" id="L163">                    trigger=true;</span>
+<span class="fc" id="L164">                    count=0;</span>
+<span class="fc" id="L165">                    previous=rec;</span>
                 }
             }
         }
 
-<span class="fc" id="L184">        return trigger;</span>
+<span class="fc" id="L170">        return trigger;</span>
     }
+
+    /**
+     * This method checks for significant decreases in the patient's blood pressure over three consecutive readings
+     * and triggers an alert if such decreases are detected.
+     * @param patient
+     */
     public boolean checkBloodPressureDecreasing(Patient patient){
-<span class="fc" id="L187">        boolean trigger = false;</span>
-<span class="fc" id="L188">        PatientRecord previous=patient.patientRecords.get(0);</span>
-<span class="fc" id="L189">        int count=0;</span>
+<span class="fc" id="L179">        boolean trigger = false;</span>
+<span class="fc" id="L180">        PatientRecord previous=patient.patientRecords.get(0);</span>
+<span class="fc" id="L181">        int count=0;</span>
 
-<span class="pc bpc" id="L191" title="1 of 4 branches missed.">        for(int i = 0; i&lt;patient.patientRecords.size() &amp;&amp; !trigger; i++) {</span>
-<span class="fc" id="L192">            PatientRecord rec = patient.patientRecords.get(i);</span>
+<span class="pc bpc" id="L183" title="1 of 4 branches missed.">        for(int i = 0; i&lt;patient.patientRecords.size() &amp;&amp; !trigger; i++) {</span>
+<span class="fc" id="L184">            PatientRecord rec = patient.patientRecords.get(i);</span>
 
-<span class="pc bpc" id="L194" title="2 of 4 branches missed.">            if(rec.getRecordType().equals(&quot;SystolicPressure&quot;) || rec.getRecordType().equals(&quot;DiastolicPressure&quot;)){</span>
+<span class="pc bpc" id="L186" title="1 of 4 branches missed.">            if(rec.getRecordType().equals(&quot;SystolicPressure&quot;) || rec.getRecordType().equals(&quot;DiastolicPressure&quot;)){</span>
 
-<span class="fc bfc" id="L196" title="All 2 branches covered.">                if(count==0){</span>
-<span class="fc" id="L197">                    count++;</span>
-<span class="fc" id="L198">                    previous=rec;</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">                if(count==0){</span>
+<span class="fc" id="L189">                    count++;</span>
+<span class="fc" id="L190">                    previous=rec;</span>
                 } else {
-<span class="fc bfc" id="L200" title="All 2 branches covered.">                    if (Math.abs(previous.getMeasurementValue() - rec.getMeasurementValue()) &gt;= 10</span>
-<span class="pc bpc" id="L201" title="1 of 2 branches missed.">                            &amp;&amp; previous.getMeasurementValue()&gt;rec.getMeasurementValue()) {</span>
-<span class="fc" id="L202">                        count++;</span>
-<span class="fc" id="L203">                        previous = rec;</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">                    if (Math.abs(previous.getMeasurementValue() - rec.getMeasurementValue()) &gt;= 10</span>
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">                            &amp;&amp; previous.getMeasurementValue()&gt;rec.getMeasurementValue()) {</span>
+<span class="fc" id="L194">                        count++;</span>
+<span class="fc" id="L195">                        previous = rec;</span>
                     } else {
-<span class="fc" id="L205">                        count = 0;</span>
-<span class="fc" id="L206">                        previous = rec;</span>
+<span class="fc" id="L197">                        count = 0;</span>
+<span class="fc" id="L198">                        previous = rec;</span>
                     }
                 }
 
-<span class="fc bfc" id="L210" title="All 2 branches covered.">                if(count==3){</span>
-<span class="fc" id="L211">                    String id = String.valueOf(rec.getPatientId());</span>
-<span class="fc" id="L212">                    Alert bloodPressureDecrease = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
-<span class="fc" id="L213">                    triggerAlert(bloodPressureDecrease);</span>
-<span class="fc" id="L214">                    trigger=true;</span>
-<span class="fc" id="L215">                    count=0;</span>
-<span class="fc" id="L216">                    previous=rec;</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">                if(count==3){</span>
+<span class="fc" id="L203">                    String id = String.valueOf(rec.getPatientId());</span>
+<span class="fc" id="L204">                    Alert bloodPressureDecrease = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
+<span class="fc" id="L205">                    triggerAlert(bloodPressureDecrease);</span>
+<span class="fc" id="L206">                    trigger=true;</span>
+<span class="fc" id="L207">                    count=0;</span>
+<span class="fc" id="L208">                    previous=rec;</span>
                 }
             }
         }
 
-<span class="fc" id="L221">        return trigger;</span>
+<span class="fc" id="L213">        return trigger;</span>
     }
 
     /**
@@ -227,72 +219,72 @@ public class AlertGenerator {
      * @param patient
      */
     public boolean checkLowSaturation(Patient patient){
-<span class="fc" id="L230">        boolean trigger = false;</span>
+<span class="fc" id="L222">        boolean trigger = false;</span>
 
-<span class="fc bfc" id="L232" title="All 2 branches covered.">        for(int i=0; i&lt;patient.patientRecords.size(); i++) {</span>
-<span class="fc" id="L233">            PatientRecord rec = patient.patientRecords.get(i);</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">        for(int i=0; i&lt;patient.patientRecords.size(); i++) {</span>
+<span class="fc" id="L225">            PatientRecord rec = patient.patientRecords.get(i);</span>
 
-<span class="pc bpc" id="L235" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;Saturation&quot;)) {</span>
-<span class="pc bpc" id="L236" title="1 of 2 branches missed.">                if (rec.getMeasurementValue() &lt;=92) {</span>
-<span class="fc" id="L237">                    String id = String.valueOf(rec.getPatientId());</span>
-<span class="fc" id="L238">                    Alert lowSaturation = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
-<span class="fc" id="L239">                    triggerAlert(lowSaturation);</span>
-<span class="fc" id="L240">                    trigger=true;</span>
+<span class="fc bfc" id="L227" title="All 2 branches covered.">            if (rec.getRecordType().equals(&quot;Saturation&quot;)) {</span>
+<span class="pc bpc" id="L228" title="1 of 2 branches missed.">                if (rec.getMeasurementValue() &lt;=92) {</span>
+<span class="fc" id="L229">                    String id = String.valueOf(rec.getPatientId());</span>
+<span class="fc" id="L230">                    Alert lowSaturation = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
+<span class="fc" id="L231">                    triggerAlert(lowSaturation);</span>
+<span class="fc" id="L232">                    trigger=true;</span>
                 }
             }
         }
-<span class="fc" id="L244">        return trigger;</span>
+<span class="fc" id="L236">        return trigger;</span>
     }
 
     /**
-     * This method checks for rapid drops in blood oxygen saturation levels over a short period
+     * This method checks for rapid drops in blood oxygen saturation levels over 10 minutes or less
      * and triggers an alert if such drops are detected.
      * @param patient
      */
     public boolean checkRapidDrop(Patient patient){
 
-<span class="fc" id="L254">        List&lt;Double&gt; timer=new ArrayList&lt;Double&gt;();</span>
-<span class="fc" id="L255">        List&lt;Double&gt; values=new ArrayList&lt;Double&gt;();</span>
-<span class="fc" id="L256">        double passedTime=0;</span>
-<span class="fc" id="L257">        double sumDrops=0;</span>
-<span class="fc" id="L258">        PatientRecord prev=patient.patientRecords.get(0);</span>
-<span class="fc" id="L259">        boolean trigger = false;</span>
+<span class="fc" id="L246">        List&lt;Double&gt; timer=new ArrayList&lt;Double&gt;();</span>
+<span class="fc" id="L247">        List&lt;Double&gt; values=new ArrayList&lt;Double&gt;();</span>
+<span class="fc" id="L248">        double passedTime=0;</span>
+<span class="fc" id="L249">        double sumDrops=0;</span>
+<span class="fc" id="L250">        PatientRecord prev=patient.patientRecords.get(0);</span>
+<span class="fc" id="L251">        boolean trigger = false;</span>
 
-<span class="fc bfc" id="L261" title="All 2 branches covered.">        for(int i=1; i&lt;patient.patientRecords.size(); i++) {</span>
-<span class="fc" id="L262">            PatientRecord rec = patient.patientRecords.get(i);</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">        for(int i=1; i&lt;patient.patientRecords.size(); i++) {</span>
+<span class="fc" id="L254">            PatientRecord rec = patient.patientRecords.get(i);</span>
 
-<span class="pc bpc" id="L264" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;Saturation&quot;)) {</span>
+<span class="pc bpc" id="L256" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;Saturation&quot;)) {</span>
 
-<span class="fc" id="L266">                double diffTime=rec.getTimestamp()- prev.getTimestamp();</span>
-<span class="fc" id="L267">                passedTime=passedTime+ diffTime;</span>
+<span class="fc" id="L258">                double diffTime=rec.getTimestamp()- prev.getTimestamp();</span>
+<span class="fc" id="L259">                passedTime=passedTime+ diffTime;</span>
 
-<span class="fc" id="L269">                double diffMeasure=prev.getMeasurementValue()-rec.getMeasurementValue();</span>
-<span class="fc" id="L270">                sumDrops=sumDrops+diffMeasure;</span>
+<span class="fc" id="L261">                double diffMeasure=prev.getMeasurementValue()-rec.getMeasurementValue();</span>
+<span class="fc" id="L262">                sumDrops=sumDrops+diffMeasure;</span>
 
-<span class="fc bfc" id="L272" title="All 2 branches covered.">                if(sumDrops&lt;5){</span>
+<span class="fc bfc" id="L264" title="All 2 branches covered.">                if(sumDrops&lt;5){</span>
 
                     //in miliseconds
-<span class="fc bfc" id="L275" title="All 4 branches covered.">                    if(passedTime&gt;=600000 &amp;&amp; i!=1){</span>
+<span class="fc bfc" id="L267" title="All 4 branches covered.">                    if(passedTime&gt;=600000 &amp;&amp; i!=1){</span>
 
-<span class="fc" id="L277">                        passedTime=0;</span>
-<span class="fc" id="L278">                        sumDrops=0;</span>
+<span class="fc" id="L269">                        passedTime=0;</span>
+<span class="fc" id="L270">                        sumDrops=0;</span>
                     }
 
-<span class="fc" id="L281">                    timer.add(diffTime);</span>
-<span class="fc" id="L282">                    values.add(diffMeasure);</span>
+<span class="fc" id="L273">                    timer.add(diffTime);</span>
+<span class="fc" id="L274">                    values.add(diffMeasure);</span>
 
                 } else{
-<span class="fc" id="L285">                    String id = String.valueOf(rec.getPatientId());</span>
-<span class="fc" id="L286">                    Alert rapidDrop = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
-<span class="fc" id="L287">                    triggerAlert(rapidDrop);</span>
-<span class="fc" id="L288">                    trigger=true;</span>
+<span class="fc" id="L277">                    String id = String.valueOf(rec.getPatientId());</span>
+<span class="fc" id="L278">                    Alert rapidDrop = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
+<span class="fc" id="L279">                    triggerAlert(rapidDrop);</span>
+<span class="fc" id="L280">                    trigger=true;</span>
                 }
 
-<span class="fc" id="L291">                prev=rec;</span>
+<span class="fc" id="L283">                prev=rec;</span>
             }
         }
 
-<span class="fc" id="L295">        return trigger;</span>
+<span class="fc" id="L287">        return trigger;</span>
     }
 
     /**
@@ -301,30 +293,31 @@ public class AlertGenerator {
      */
     public boolean checkHeartRate(Patient patient){
 
-<span class="fc" id="L304">        PatientRecord pr=patient.patientRecords.get(0);</span>
-<span class="fc" id="L305">        boolean trigger = false;</span>
+<span class="fc" id="L296">        PatientRecord pr=patient.patientRecords.get(0);</span>
+<span class="fc" id="L297">        boolean trigger = false;</span>
 
-<span class="fc bfc" id="L307" title="All 2 branches covered.">        for(int i=0; i&lt;patient.patientRecords.size(); i++) {</span>
-<span class="fc" id="L308">            PatientRecord rec = patient.patientRecords.get(i);</span>
+<span class="fc bfc" id="L299" title="All 2 branches covered.">        for(int i=0; i&lt;patient.patientRecords.size(); i++) {</span>
+<span class="fc" id="L300">            PatientRecord rec = patient.patientRecords.get(i);</span>
 
-<span class="pc bpc" id="L310" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;ECG&quot;)) {</span>
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;ECG&quot;)) {</span>
 
                 //transforming the data into bpm
                 //double timeInterval=rec.getTimestamp()-pr.getTimestamp();
                 //double heartRate=60000/timeInterval;
 
                 //for testing JUnit
-<span class="fc" id="L317">                double heartRate=rec.getMeasurementValue();</span>
+<span class="fc" id="L309">                double heartRate=rec.getMeasurementValue();</span>
 
-<span class="pc bpc" id="L319" title="1 of 4 branches missed.">                if (heartRate &lt;=50 || heartRate &gt;= 100) {</span>
-<span class="fc" id="L320">                    String id = String.valueOf(rec.getPatientId());</span>
-<span class="fc" id="L321">                    Alert abnormalHeartRate = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
-<span class="fc" id="L322">                    triggerAlert(abnormalHeartRate);</span>
-<span class="fc" id="L323">                    trigger=true;</span>
+<span class="pc bpc" id="L311" title="1 of 4 branches missed.">                if (heartRate &lt;=50 || heartRate &gt;= 100) {</span>
+<span class="fc" id="L312">                    String id = String.valueOf(rec.getPatientId());</span>
+<span class="fc" id="L313">                    Alert abnormalHeartRate = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
+<span class="fc" id="L314">                    triggerAlert(abnormalHeartRate);</span>
+<span class="fc" id="L315">                    System.out.print(&quot;Abnormal heart rate alert&quot;);</span>
+<span class="fc" id="L316">                    trigger=true;</span>
                 }
             }
         }
-<span class="fc" id="L327">        return trigger;</span>
+<span class="fc" id="L320">        return trigger;</span>
     }
 
     /**
@@ -335,26 +328,26 @@ public class AlertGenerator {
 
     public boolean irregularBeat(Patient patient){
 
-<span class="fc" id="L338">        PatientRecord pr=patient.patientRecords.get(0);</span>
-<span class="fc" id="L339">        boolean trigger = false;</span>
+<span class="fc" id="L331">        PatientRecord pr=patient.patientRecords.get(0);</span>
+<span class="fc" id="L332">        boolean trigger = false;</span>
 
-<span class="fc bfc" id="L341" title="All 2 branches covered.">        for(int i=1; i&lt;patient.patientRecords.size(); i++) {</span>
-<span class="fc" id="L342">            PatientRecord rec = patient.patientRecords.get(i);</span>
+<span class="fc bfc" id="L334" title="All 2 branches covered.">        for(int i=1; i&lt;patient.patientRecords.size(); i++) {</span>
+<span class="fc" id="L335">            PatientRecord rec = patient.patientRecords.get(i);</span>
 
-<span class="pc bpc" id="L344" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;ECG&quot;)) {</span>
+<span class="pc bpc" id="L337" title="1 of 2 branches missed.">            if (rec.getRecordType().equals(&quot;ECG&quot;)) {</span>
 
-<span class="fc" id="L346">                double timeInterval=rec.getTimestamp()-pr.getTimestamp();</span>
+<span class="fc" id="L339">                double timeInterval=rec.getTimestamp()-pr.getTimestamp();</span>
 
-<span class="fc bfc" id="L348" title="All 4 branches covered.">                if (timeInterval &lt;=24 || timeInterval &gt;= 62) {</span>
-<span class="fc" id="L349">                    String id = String.valueOf(rec.getPatientId());</span>
-<span class="fc" id="L350">                    Alert irregularBeat = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
-<span class="fc" id="L351">                    triggerAlert(irregularBeat);</span>
-<span class="fc" id="L352">                    trigger=true;</span>
+<span class="fc bfc" id="L341" title="All 4 branches covered.">                if (timeInterval &lt;=24 || timeInterval &gt;= 62) {</span>
+<span class="fc" id="L342">                    String id = String.valueOf(rec.getPatientId());</span>
+<span class="fc" id="L343">                    Alert irregularBeat = new Alert(id, rec.getRecordType(), rec.getTimestamp());</span>
+<span class="fc" id="L344">                    triggerAlert(irregularBeat);</span>
+<span class="fc" id="L345">                    trigger=true;</span>
                 }
             }
         }
 
-<span class="fc" id="L357">        return trigger;</span>
+<span class="fc" id="L350">        return trigger;</span>
     }
 
     /**
@@ -367,8 +360,8 @@ public class AlertGenerator {
      */
     private static void triggerAlert(Alert alert) {
         // Implementation might involve logging the alert or notifying staff
-<span class="fc" id="L370">        System.out.print(&quot;Alert triggered: &quot; + alert.getCondition() + &quot; for patient &quot; + alert.getPatientId() + &quot;at&quot; + alert.getTimestamp());</span>
-<span class="fc" id="L371">    }</span>
+<span class="fc" id="L363">        System.out.print(&quot;Alert triggered: &quot; + alert.getCondition() + &quot; for patient &quot; + alert.getPatientId() + &quot;at&quot; + alert.getTimestamp());</span>
+<span class="fc" id="L364">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,3 +1,5 @@
-alerts\FileReaderTest.class
+webSocket\IntegrationTest.class
 alerts\AlertGeneratorTest.class
 data_management\DataStorageTest.class
+alerts\FileReaderTest.class
+webSocket\WebSocketClientReaderTest.class

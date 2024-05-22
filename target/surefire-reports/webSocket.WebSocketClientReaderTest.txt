@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: alerts.AlertGeneratorTest
+Test set: webSocket.WebSocketClientReaderTest
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.320 s -- in alerts.AlertGeneratorTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.118 s -- in webSocket.WebSocketClientReaderTest

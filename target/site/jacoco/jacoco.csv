@@ -11,9 +11,10 @@ cardio_generator,com.cardiogenerator.generators,BloodLevelsDataGenerator,129,0,2
 cardio_generator,com.cardiogenerator.generators,BloodPressureDataGenerator,118,0,2,0,25,0,4,0,3,0
 cardio_generator,com.Main,Main,20,0,4,0,5,0,4,0,2,0
 cardio_generator,com.data_management,Patient,0,61,2,4,0,14,2,5,0,4
-cardio_generator,com.data_management,DataStorage,53,60,4,4,13,14,3,6,1,4
+cardio_generator,com.data_management,DataStorage,24,60,0,4,8,14,1,6,1,4
 cardio_generator,com.data_management,FileReader,17,109,1,3,10,21,2,6,1,5
+cardio_generator,com.data_management,WebSocketClientReader,17,99,3,5,3,32,3,7,0,6
 cardio_generator,com.data_management,PatientRecord,0,27,0,0,0,10,0,5,0,5
 cardio_generator,com.alerts,Alert,0,21,0,0,0,8,0,4,0,4
-cardio_generator,com.alerts,AlertGenerator,37,645,20,76,10,145,20,40,0,12
+cardio_generator,com.alerts,AlertGenerator,0,685,14,82,0,156,14,46,0,12
 cardio_generator,com.cardiogenerator,HealthDataSimulator,340,0,24,0,83,0,26,0,13,0

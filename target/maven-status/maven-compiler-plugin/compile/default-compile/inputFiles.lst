@@ -3,6 +3,7 @@ C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\cardiogenerator\gen
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\cardiogenerator\outputs\FileOutputStrategy.java
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\cardiogenerator\outputs\TcpOutputStrategy.java
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\cardiogenerator\outputs\ConsoleOutputStrategy.java
+C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\data_management\DataReader2.java
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\cardiogenerator\generators\BloodLevelsDataGenerator.java
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\cardiogenerator\outputs\WebSocketOutputStrategy.java
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\data_management\DataReader.java
@@ -17,4 +18,5 @@ C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\data_management\Dat
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\data_management\FileReader.java
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\data_management\Patient.java
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\cardiogenerator\outputs\OutputStrategy.java
+C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\data_management\WebSocketClientReader.java
 C:\Users\leler\ken1520_2024\signal_project\src\main\java\com\data_management\PatientRecord.java
