@@ -47,12 +47,12 @@ public class AlertGenerator {
         }
         checkSystolicPressure(patient);
         checkDiastolicPressure(patient);
-        checkBloodPressureIncreasing(patient) ;
-        checkBloodPressureDecreasing(patient) ;
-        checkLowSaturation(patient) ;
-        checkRapidDrop(patient) ;
-        checkHeartRate(patient) ;
-        irregularBeat(patient) ;
+        checkBloodPressureIncreasing(patient);
+        checkBloodPressureDecreasing(patient);
+        checkLowSaturation(patient);
+        checkRapidDrop(patient);
+        checkHeartRate(patient);
+        irregularBeat(patient);
         hypotensiveHypoxemiaAlert(patient);
     }
 
@@ -312,6 +312,7 @@ public class AlertGenerator {
                     String id = String.valueOf(rec.getPatientId());
                     Alert abnormalHeartRate = new Alert(id, rec.getRecordType(), rec.getTimestamp());
                     triggerAlert(abnormalHeartRate);
+                    System.out.print("Abnormal heart rate alert");
                     trigger=true;
                 }
             }
