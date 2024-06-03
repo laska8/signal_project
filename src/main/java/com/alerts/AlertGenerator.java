@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class AlertGenerator {
     private DataStorage dataStorage;
+    private AlertStrategy strategy;
 
 
     /**
@@ -358,9 +359,26 @@ public class AlertGenerator {
      *
      * @param alert the alert object containing details about the alert condition
      */
-    private static void triggerAlert(Alert alert) {
+    public static void triggerAlert(Alert alert) {
         // Implementation might involve logging the alert or notifying staff
         System.out.print("Alert triggered: " + alert.getCondition() + " for patient " + alert.getPatientId() + "at" + alert.getTimestamp());
+    }
+
+    public void evaluateStrategy(Patient patient) {
+        if (patient == null) {
+            throw new NullPointerException("No patient");
+        } else if (strategy == null) {
+            throw new NullPointerException("No strategy");
+        }
+        System.out.println(strategy);
+        strategy.checkAlert(patient);
+    }
+
+    public void setStrategy(AlertStrategy strategy) {
+        if (strategy == null) {
+            throw new NullPointerException("No strategy");
+        }
+        this.strategy =strategy;
     }
 
 }

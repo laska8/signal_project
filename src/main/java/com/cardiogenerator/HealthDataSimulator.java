@@ -36,6 +36,7 @@ public class HealthDataSimulator {
     private static ScheduledExecutorService scheduler;
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static final Random random = new Random();
+    private static HealthDataSimulator instance;
     /**
      * The main method of the program which parses command line arguments,
      * initializes the scheduler, creates a list of patient IDs, reorders patient IDs,
@@ -44,15 +45,18 @@ public class HealthDataSimulator {
      * @throws IOException If an IOException error occurs.
      */
     public static void main(String[] args) throws IOException {
-
-        parseArguments(args);
-
-        scheduler = Executors.newScheduledThreadPool(patientCount * 4);
-
-        List<Integer> patientIds = initializePatientIds(patientCount);
-        Collections.shuffle(patientIds); // Randomize the order of patient IDs
-
-        scheduleTasksForPatients(patientIds);
+        HealthDataSimulator simulator = HealthDataSimulator.getInstance();
+        simulator.parseArguments(args);
+        simulator.scheduler = Executors.newScheduledThreadPool(patientCount * 4);
+        List<Integer> patientIds = simulator.initializePatientIds(patientCount);
+        Collections.shuffle(patientIds);
+        simulator.scheduleTasksForPatients(patientIds);
+//        scheduler = Executors.newScheduledThreadPool(patientCount * 4);
+//
+//        List<Integer> patientIds = initializePatientIds(patientCount);
+//        Collections.shuffle(patientIds); // Randomize the order of patient IDs
+//
+//        scheduleTasksForPatients(patientIds);
     }
     /**
      * Parses the command-line arguments. It handles the options such as printing help message,
@@ -181,5 +185,15 @@ public class HealthDataSimulator {
      */
     private static void scheduleTask(Runnable task, long period, TimeUnit timeUnit) {
         scheduler.scheduleAtFixedRate(task, random.nextInt(5), period, timeUnit);
+    }
+    public static HealthDataSimulator getInstance(){
+        if (instance==null){
+            synchronized (HealthDataSimulator.class){
+                if (instance==null){
+                    instance = new HealthDataSimulator();
+                }
+            }
+        }
+        return instance;
     }
 }

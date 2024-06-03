@@ -17,6 +17,7 @@ import com.alerts.AlertGenerator;
  */
 public class DataStorage {
     private Map<Integer, Patient> patientMap; // Stores patient objects indexed by their unique patient ID.
+    private static DataStorage instance;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
@@ -78,6 +79,17 @@ public class DataStorage {
         return new ArrayList<>(patientMap.values());
     }
 
+    public static DataStorage getInstance(){
+        if (instance==null){
+            synchronized (DataStorage.class){
+                if (instance==null){
+                    instance = new DataStorage();
+                }
+            }
+        }
+        return instance;
+    }
+
     /**
      * The main method for the DataStorage class.
      * Initializes the system, reads data into storage, and continuously monitors
@@ -87,17 +99,15 @@ public class DataStorage {
      */
     public static void main(String[] args) {
         try {
-            DataStorage storage = new DataStorage();
+            DataStorage storage = DataStorage.getInstance();
+            //DataStorage storage = new DataStorage();
             URI url = new URI("ws://localhost:8080");
-
-            DataReader2 reader = new WebSocketClientReader(storage,url);
-
+            DataReader2 reader = new WebSocketClientReader(storage, url);
             reader.readData(storage, url);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
         // Example of using DataStorage to retrieve and print records for a patient
 //        List<PatientRecord> records = storage.getRecords(1, 1700000000000L, 1800000000000L);
 //        for (PatientRecord record : records) {
@@ -114,6 +124,6 @@ public class DataStorage {
 //        for (Patient patient : storage.getAllPatients()) {
 //            alertGenerator.evaluateData(patient);
 //        }
-       }
+
 
 }
