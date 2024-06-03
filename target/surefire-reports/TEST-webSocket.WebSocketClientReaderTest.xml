@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="webSocket.WebSocketClientReaderTest" time="0.118" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="webSocket.WebSocketClientReaderTest" time="0.111" tests="7" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="20"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk-20\bin"/>
-    <property name="sun.java.command" value="C:\Users\leler\AppData\Local\Temp\surefire10750799269083100682\surefirebooter-20240522160117307_3.jar C:\Users\leler\AppData\Local\Temp\surefire10750799269083100682 2024-05-22T16-01-16_848-jvmRun1 surefire-20240522160117307_1tmp surefire_0-20240522160117307_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\leler\AppData\Local\Temp\surefire10055421625908281638\surefirebooter-20240602171655885_3.jar C:\Users\leler\AppData\Local\Temp\surefire10055421625908281638 2024-06-02T17-16-55_293-jvmRun1 surefire-20240602171655885_1tmp surefire_0-20240602171655885_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\leler\ken1520_2024\signal_project\target\test-classes;C:\Users\leler\ken1520_2024\signal_project\target\classes;C:\Users\leler\.m2\repository\org\java-websocket\Java-WebSocket\1.5.2\Java-WebSocket-1.5.2.jar;C:\Users\leler\.m2\repository\org\slf4j\slf4j-api\1.7.25\slf4j-api-1.7.25.jar;C:\Users\leler\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\leler\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\leler\.m2\repository\org\junit\jupiter\junit-jupiter\5.11.0-M2\junit-jupiter-5.11.0-M2.jar;C:\Users\leler\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.11.0-M2\junit-jupiter-api-5.11.0-M2.jar;C:\Users\leler\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\leler\.m2\repository\org\junit\platform\junit-platform-commons\1.11.0-M2\junit-platform-commons-1.11.0-M2.jar;C:\Users\leler\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\leler\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.11.0-M2\junit-jupiter-params-5.11.0-M2.jar;C:\Users\leler\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.11.0-M2\junit-jupiter-engine-5.11.0-M2.jar;C:\Users\leler\.m2\repository\org\junit\platform\junit-platform-engine\1.11.0-M2\junit-platform-engine-1.11.0-M2.jar;C:\Users\leler\.m2\repository\org\testng\testng\7.10.2\testng-7.10.2.jar;C:\Users\leler\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\leler\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\leler\.m2\repository\org\mockito\mockito-core\4.0.0\mockito-core-4.0.0.jar;C:\Users\leler\.m2\repository\net\bytebuddy\byte-buddy\1.11.19\byte-buddy-1.11.19.jar;C:\Users\leler\.m2\repository\net\bytebuddy\byte-buddy-agent\1.11.19\byte-buddy-agent-1.11.19.jar;C:\Users\leler\.m2\repository\org\objenesis\objenesis\3.2\objenesis-3.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\leler\AppData\Local\Temp\surefire10750799269083100682\surefirebooter-20240522160117307_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\leler\AppData\Local\Temp\surefire10055421625908281638\surefirebooter-20240602171655885_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="20+36-2344"/>
@@ -58,10 +58,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="64.0"/>
   </properties>
-  <testcase name="testOnClose" classname="webSocket.WebSocketClientReaderTest" time="0.006"/>
-  <testcase name="testOnError" classname="webSocket.WebSocketClientReaderTest" time="0.008">
+  <testcase name="testOnClose" classname="webSocket.WebSocketClientReaderTest" time="0.003"/>
+  <testcase name="testOnError" classname="webSocket.WebSocketClientReaderTest" time="0.006">
     <system-err><![CDATA[java.lang.Exception: Test exception
-	at webSocket.WebSocketClientReaderTest.testOnError(WebSocketClientReaderTest.java:87)
+	at webSocket.WebSocketClientReaderTest.testOnError(WebSocketClientReaderTest.java:103)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:765)
@@ -133,21 +133,21 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 ]]></system-err>
   </testcase>
-  <testcase name="testInvalidMessage" classname="webSocket.WebSocketClientReaderTest" time="0.023">
+  <testcase name="testInvalidMessage" classname="webSocket.WebSocketClientReaderTest" time="0.024">
     <system-err><![CDATA[Invalid message format: Invalid message
 ]]></system-err>
   </testcase>
-  <testcase name="testConnectionFailure" classname="webSocket.WebSocketClientReaderTest" time="0.016"/>
-  <testcase name="testValidMessage" classname="webSocket.WebSocketClientReaderTest" time="0.019"/>
-  <testcase name="testOnOpen" classname="webSocket.WebSocketClientReaderTest" time="0.003"/>
-  <testcase name="testParsingError" classname="webSocket.WebSocketClientReaderTest" time="0.022">
+  <testcase name="testConnectionFailure" classname="webSocket.WebSocketClientReaderTest" time="0.018"/>
+  <testcase name="testValidMessage" classname="webSocket.WebSocketClientReaderTest" time="0.015"/>
+  <testcase name="testOnOpen" classname="webSocket.WebSocketClientReaderTest" time="0.002"/>
+  <testcase name="testParsingError" classname="webSocket.WebSocketClientReaderTest" time="0.024">
     <system-err><![CDATA[Error parsing message: Patient ID: not_number, Timestamp: 1716296978067, Label: ECG, Data: 0.25539439796331415
 java.lang.NumberFormatException: For input string: "Patient ID: not_number"
 	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:67)
 	at java.base/java.lang.Integer.parseInt(Integer.java:665)
 	at java.base/java.lang.Integer.parseInt(Integer.java:781)
-	at com.data_management.WebSocketClientReader.onMessage(WebSocketClientReader.java:30)
-	at webSocket.WebSocketClientReaderTest.testParsingError(WebSocketClientReaderTest.java:78)
+	at com.data_management.WebSocketClientReader.onMessage(WebSocketClientReader.java:45)
+	at webSocket.WebSocketClientReaderTest.testParsingError(WebSocketClientReaderTest.java:92)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:765)

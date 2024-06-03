@@ -1,5 +1,7 @@
-webSocket\IntegrationTest.class
-alerts\AlertGeneratorTest.class
+alerts\AlertFactoryTest.class
 data_management\DataStorageTest.class
 alerts\FileReaderTest.class
 webSocket\WebSocketClientReaderTest.class
+alerts\AlertSingletonTest.class
+webSocket\IntegrationTest.class
+alerts\AlertGeneratorTest.class

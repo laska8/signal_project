@@ -17,14 +17,15 @@ import com.alerts.AlertGenerator;
  */
 public class DataStorage {
     private Map&lt;Integer, Patient&gt; patientMap; // Stores patient objects indexed by their unique patient ID.
+    private static DataStorage instance;
 
     /**
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
-<span class="fc" id="L25">    public DataStorage() {</span>
-<span class="fc" id="L26">        this.patientMap = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L27">    }</span>
+<span class="fc" id="L26">    public DataStorage() {</span>
+<span class="fc" id="L27">        this.patientMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L28">    }</span>
 
     /**
      * Adds or updates patient data in the storage.
@@ -40,13 +41,13 @@ public class DataStorage {
      *                         milliseconds since the Unix epoch
      */
     public void addPatientData(int patientId, double measurementValue, String recordType, long timestamp) {
-<span class="fc" id="L43">        Patient patient = patientMap.get(patientId);</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (patient == null) {</span>
-<span class="fc" id="L45">            patient = new Patient(patientId);</span>
-<span class="fc" id="L46">            patientMap.put(patientId, patient);</span>
+<span class="fc" id="L44">        Patient patient = patientMap.get(patientId);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (patient == null) {</span>
+<span class="fc" id="L46">            patient = new Patient(patientId);</span>
+<span class="fc" id="L47">            patientMap.put(patientId, patient);</span>
         }
-<span class="fc" id="L48">        patient.addRecord(measurementValue, recordType, timestamp);</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L49">        patient.addRecord(measurementValue, recordType, timestamp);</span>
+<span class="fc" id="L50">    }</span>
 
     /**
      * Retrieves a list of PatientRecord objects for a specific patient, filtered by
@@ -62,11 +63,11 @@ public class DataStorage {
      *         range
      */
     public List&lt;PatientRecord&gt; getRecords(int patientId, long startTime, long endTime) {
-<span class="fc" id="L65">        Patient patient = patientMap.get(patientId);</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (patient != null) {</span>
-<span class="fc" id="L67">            return patient.getRecords(startTime, endTime);</span>
+<span class="fc" id="L66">        Patient patient = patientMap.get(patientId);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (patient != null) {</span>
+<span class="fc" id="L68">            return patient.getRecords(startTime, endTime);</span>
         }
-<span class="fc" id="L69">        return new ArrayList&lt;&gt;(); // return an empty list if no patient is found</span>
+<span class="fc" id="L70">        return new ArrayList&lt;&gt;(); // return an empty list if no patient is found</span>
     }
 
     /**
@@ -75,7 +76,18 @@ public class DataStorage {
      * @return a list of all patients
      */
     public List&lt;Patient&gt; getAllPatients() {
-<span class="fc" id="L78">        return new ArrayList&lt;&gt;(patientMap.values());</span>
+<span class="fc" id="L79">        return new ArrayList&lt;&gt;(patientMap.values());</span>
+    }
+
+    public static DataStorage getInstance(){
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (instance==null){</span>
+<span class="fc" id="L84">            synchronized (DataStorage.class){</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                if (instance==null){</span>
+<span class="fc" id="L86">                    instance = new DataStorage();</span>
+                }
+<span class="fc" id="L88">            }</span>
+        }
+<span class="fc" id="L90">        return instance;</span>
     }
 
     /**
@@ -87,17 +99,15 @@ public class DataStorage {
      */
     public static void main(String[] args) {
         try {
-<span class="nc" id="L90">            DataStorage storage = new DataStorage();</span>
-<span class="nc" id="L91">            URI url = new URI(&quot;ws://localhost:8080&quot;);</span>
-
-<span class="nc" id="L93">            DataReader2 reader = new WebSocketClientReader(storage,url);</span>
-
-<span class="nc" id="L95">            reader.readData(storage, url);</span>
-
-<span class="nc" id="L97">        } catch (Exception e) {</span>
-<span class="nc" id="L98">            e.printStackTrace();</span>
-<span class="nc" id="L99">        }</span>
-
+<span class="nc" id="L102">            DataStorage storage = DataStorage.getInstance();</span>
+            //DataStorage storage = new DataStorage();
+<span class="nc" id="L104">            URI url = new URI(&quot;ws://localhost:8080&quot;);</span>
+<span class="nc" id="L105">            DataReader2 reader = new WebSocketClientReader(storage, url);</span>
+<span class="nc" id="L106">            reader.readData(storage, url);</span>
+<span class="nc" id="L107">        } catch (Exception e) {</span>
+<span class="nc" id="L108">            e.printStackTrace();</span>
+<span class="nc" id="L109">        }</span>
+<span class="nc" id="L110">    }</span>
         // Example of using DataStorage to retrieve and print records for a patient
 //        List&lt;PatientRecord&gt; records = storage.getRecords(1, 1700000000000L, 1800000000000L);
 //        for (PatientRecord record : records) {
@@ -114,7 +124,7 @@ public class DataStorage {
 //        for (Patient patient : storage.getAllPatients()) {
 //            alertGenerator.evaluateData(patient);
 //        }
-<span class="nc" id="L117">       }</span>
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
